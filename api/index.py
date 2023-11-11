@@ -27,7 +27,7 @@ def prayer(s):
 
   try :
     # url = urls[0]['href']
-    url = "https://www.muslimpro.com/id/Prayer-times-adhan-Stockholm-Sweden-2673730"
+    url = "https://www.muslimpro.com/Prayer-times-adhan-Stockholm-Sweden-2673730"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     city = soup.find("p", attrs ={"class": "location"})
