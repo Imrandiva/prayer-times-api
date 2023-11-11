@@ -1,0 +1,5 @@
+Flask==2.0.1
+Flask-Cors==3.0.10
+duckduckgo-search==0.4
+beautifulsoup4==4.10.0
+dateparser==1.0.0

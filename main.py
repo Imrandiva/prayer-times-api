@@ -1,22 +1,14 @@
-import requests
-from flask import Flask, jsonify
-from flask_cors import CORS, cross_origin
-from threading import Thread
-from duckduckgo_search import ddg
-from bs4 import BeautifulSoup
-import dateparser
-app = Flask('')
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['JSON_SORT_KEYS'] = False
+from flask import Flask, jsonify, request
 
-@app.route('/')	
+app = Flask(__name__)
+
+@app.route('/')
 def home():
-	return  "I'm alive"
+    return "I'm alive"
 
-@app.route('/api/<string:s>', methods=['GET'])
-@cross_origin(origin='*')
-def prayer(s):
+@app.route('/api', methods=['GET'])
+def prayer():
+  s = request.args.get('s')
   query = str(s + " prayer time site:muslimpro.com")
   data = {}
   urls = ddg(query, max_results=1)
@@ -52,8 +44,12 @@ def prayer(s):
     data["Error"] = "Result Not Found"
   return jsonify(data)
 
-def run():
-	app.run(host='0.0.0.0',port=3000)
+# def run():
+# 	app.run(host='0.0.0.0',port=3000)
 
-t = Thread(target=run)
-t.start()
+# t = Thread(target=run)
+# t.start()
+
+# Entry point for Vercel
+def handler(request):
+    return app(request)
