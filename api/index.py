@@ -1,24 +1,33 @@
 import requests
 from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
+from flask_cors import CORS, cross_origin
+
 import dateparser
 from duckduckgo_search import ddg
 from flask import Flask, jsonify, request
 
+
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['JSON_SORT_KEYS'] = False
 
 @app.route('/')
 def home():
-    return "I'm alive"
+    return "It's working!"
 
-@app.route('/api', methods=['GET'])
-def prayer():
-  s = request.args.get('s')
-  query = str(s + " prayer time site:muslimpro.com")
+@app.route('/api/<string:s>', methods=['GET'])
+@cross_origin(origin='*')
+def prayer(s):
+  # query = str(s + " prayer time site:muslimpro.com")
   data = {}
-  urls = ddg(query, max_results=1)
+  # urls = ddg("google", query, max_results=1)")
+  # print("hello")
+
   try :
-    url = urls[0]['href']
+    # url = urls[0]['href']
+    url = "https://www.muslimpro.com/id/Prayer-times-adhan-Stockholm-Sweden-2673730"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     city = soup.find("p", attrs ={"class": "location"})
@@ -27,9 +36,9 @@ def prayer():
     data["date"] = dates.get_text()
     data["today"] = {}
     data["tomorrow"] = {}
-    prayer_name = soup.find_all("span", attrs ={"class": "waktu-solat"})
+    waktu = soup.find_all("span", attrs ={"class": "waktu-solat"})
     jam = soup.find_all("span", attrs ={"class": "jam-solat"})
-    for x,y in zip(prayer_name,jam):
+    for x,y in zip(waktu,jam):
       data["today"][x.get_text()] = y.get_text()
     names = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha'a"]
     try:
@@ -49,12 +58,6 @@ def prayer():
     data["Error"] = "Result Not Found"
   return jsonify(data)
 
-# def run():
-# 	app.run(host='0.0.0.0',port=3000)
-
-# t = Thread(target=run)
-# t.start()
-
 # Entry point for Vercel
-def handler(request):
-    return app(request)
+# def handler(request):
+#     return app(request)
