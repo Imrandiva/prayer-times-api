@@ -1,3 +1,8 @@
+import requests
+from flask import Flask, jsonify, request
+from bs4 import BeautifulSoup
+import dateparser
+from duckduckgo_search import ddg
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
