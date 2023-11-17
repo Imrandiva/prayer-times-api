@@ -1,3 +1,5 @@
+# vercel dev
+
 import requests
 from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
@@ -30,33 +32,44 @@ def prayer(s):
     url = "https://www.muslimpro.com/Prayer-times-adhan-Stockholm-Sweden-2673730"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-    city = soup.find("p", attrs ={"class": "location"})
-    dates = soup.find("div", attrs ={"class": "prayer-daily-title-location"})
-    data["city"] = city.get_text()
-    data["date"] = dates.get_text()
-    data["today"] = {}
-    data["tomorrow"] = {}
-    waktu = soup.find_all("span", attrs ={"class": "waktu-solat"})
-    jam = soup.find_all("span", attrs ={"class": "jam-solat"})
-    for x,y in zip(waktu,jam):
-      data["today"][x.get_text()] = y.get_text()
-    names = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha'a"]
-    try:
-      tomorrow = soup.find("tr", attrs={"class": "active"}).find_next("tr").find_all("td", attrs={"class": "prayertime"})
-      for x,y in zip(names,tomorrow):
-        data["tomorrow"][x] = y.get_text()
-    except :
-      month = str(dateparser.parse(data["date"]))[5:7]
-      url = url + '?date=2021-' + str(int(month)+1)
-      response = requests.get(url)
-      soup = BeautifulSoup(response.content, "html.parser")
-      tomorrow = soup.find_all("tr")[1].find_all("td", attrs={"class": "prayertime"})
-      for x,y in zip(names,tomorrow):
-        data["tomorrow"][x] = y.get_text()
+    data = soup.find("div", attrs ={"class": "table-responsive p-0 col-12"})
+    
+    # Parse the HTML content
+    # Find the table element
+    table = soup.find('table', class_='prayer-times')
+
+    if table:
+        # Initialize an empty dictionary to store the parsed data
+        prayer_times = {}
+
+        # Extract the header row to get the prayer names
+        header_row = table.find('tr', class_='text-center')
+
+        if header_row:
+            prayer_names = [th.get_text() for th in header_row.find_all('th')[1:]]
+
+            # Extract rows containing prayer times
+            prayer_rows = table.find_all('tr')[1:]
+
+            # Iterate through each row and extract the data
+            for row in prayer_rows:
+                date_cell = row.find('td', class_='prayertime-1')
+                if date_cell:
+                    date = date_cell.get_text()
+                    times = [td.get_text() for td in row.find_all('td', class_='prayertime')[1:]]
+                    prayer_times[date] = dict(zip(prayer_names, times))
+
+            # Print the parsed data
+            print(prayer_times)
+        else:
+            print("Header row not found.")
+    else:
+        print("Table not found.")
+
   except Exception as e:
     print(e)
     data["Error"] = "Result Not Found"
-  return jsonify(data)
+  return jsonify(prayer_times)
 
 # Entry point for Vercel
 # def handler(request):
