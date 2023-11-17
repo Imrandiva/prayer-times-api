@@ -49,14 +49,14 @@ def prayer(s):
             prayer_names = [th.get_text() for th in header_row.find_all('th')[1:]]
 
             # Extract rows containing prayer times
-            prayer_rows = table.find_all('tr')[1:]
+            prayer_rows = table.find_all('tr')[0:]
 
             # Iterate through each row and extract the data
             for row in prayer_rows:
                 date_cell = row.find('td', class_='prayertime-1')
                 if date_cell:
                     date = date_cell.get_text()
-                    times = [td.get_text() for td in row.find_all('td', class_='prayertime')[1:]]
+                    times = [td.get_text() for td in row.find_all('td', class_='prayertime')[0:]]
                     prayer_times[date] = dict(zip(prayer_names, times))
 
             # Print the parsed data
