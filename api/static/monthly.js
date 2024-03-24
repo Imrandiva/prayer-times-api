@@ -75,27 +75,33 @@ function getMonthlyPrayerTimes(json) {
   
       let today = getTodaysDate();
 
-      for (const [date, times] of Object.entries(json)) {
+      let date = document.getElementById('today-date');
+
+      date.textContent = today;
+      date.style.color = "black"
+
+
+    //   for (const [date, times] of Object.entries(json)) {
         
         
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${date}</td><td>${times.Fajr}</td><td>${times.Sunrise}</td><td>${times.Dhuhr}</td><td>${times.Asr}</td><td>${times.Maghrib}</td><td>${times["Isha'a"]}</td>`;
+    //     const row = document.createElement('tr');
+    //     row.innerHTML = `<td>${date}</td><td>${times.Fajr}</td><td>${times.Sunrise}</td><td>${times.Dhuhr}</td><td>${times.Asr}</td><td>${times.Maghrib}</td><td>${times["Isha'a"]}</td>`;
         
-        if (date == today) {
-            row.style.backgroundColor = 'lightblue';
-            tbody.appendChild(row);
-            const rowTop = row.offsetTop;
-            // Scroll to the top position of the row with a smooth behavior
-            window.scrollTo({ top: rowTop, behavior: 'smooth' });        }
-        else{
-            tbody.appendChild(row);
-        }
+    //     if (date == today) {
+    //         row.style.backgroundColor = 'lightblue';
+    //         tbody.appendChild(row);
+    //         const rowTop = row.offsetTop;
+    //         // Scroll to the top position of the row with a smooth behavior
+    //         window.scrollTo({ top: rowTop, behavior: 'smooth' });        }
+    //     else{
+    //         tbody.appendChild(row);
+    //     }
 
 
 
        
         
-      }
+    //   }
 }
 function getTodaysDate() {
     let today = new Date();

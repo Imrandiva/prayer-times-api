@@ -99,7 +99,7 @@ function displayPrayerTimes(json) {
     const prayerName = document.getElementById("prayers");
     const todaysDate = document.getElementById("todaysDate");
     
-
+    
     let today = new Date();
     let day = today.getDate();
     let month = today.toLocaleString('default', { month: 'short' });
