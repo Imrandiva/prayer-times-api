@@ -76,8 +76,8 @@ def prayer():
 # def handler(request):
 #     return app(request)
 
-# if __name__ == "__main__":
-#     app.run(debug=True, port=5001)
+if __name__ == "__main__":
+    app.run()
     # main()
     # val = ManualDataEntry()
     # val.main()
