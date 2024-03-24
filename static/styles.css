@@ -1,0 +1,161 @@
+
+h1 {
+  color: #FFFFFF;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+h5 {
+  font-weight: lighter;
+  font-size: small;
+  margin-top: -1rem;
+}
+.container {
+  display: block;
+
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  position: relative;
+
+    overflow: scroll;
+    white-space: nowrap;
+  
+  
+}
+
+th, td {
+  text-align: center;
+  padding-left: 0.1rem; 
+  padding-right: 0.1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1rem; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-width: 200px;
+  
+
+}
+
+th {
+  background-color: #3D426B;
+  color: #FFFFFF;
+
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+  background-color: #d9d8db;
+}
+
+/* Sticky header */
+th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #3D426B;
+  color: #FFFFFF;
+}
+#fajr, #sunrise, #dhuhr, #asr, #maghrib, #isha, #fajr_tmr {
+  width: 90%;
+  background-color: #3D426B;
+  color: #FFFFFF;
+  font-size: 1rem;
+  padding: 0rem;
+  margin: 20px;
+  display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow:5px 10px 8px #212124;
+  position: relative;
+  left: 45%;
+  transform: translateX(-50%);
+}
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #3D426B; 
+  color: lightgray; 
+  border-radius: 50rem;
+  position: absolute;
+  left: 50%;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+
+}
+
+.button-link:hover {
+  transform: scale(1.1);
+  color: #ffffff;
+}
+
+.loader {
+  border: 9px solid #f3f3f3;
+  border-top: 9px solid #007bff; 
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  animation: spin 0.9s linear infinite;
+  margin: 20px auto;
+  margin-top: 30%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media screen and (min-width: 762px) {
+  #icons {
+    width: 50%
+  }
+  #prayerNames {
+    font-size: 3rem;
+  }
+  
+}
+
+@media screen and (max-width: 762px) {
+  #icons {
+    width: 100%
+  }
+  #prayerNames {
+    font-size: 1.5rem;
+  }
+  .button-link {
+    padding: 10px 15px; 
+    font-size: 1rem;
+    border-radius: 50rem;
+    left: 15%;
+    
+  
+  }
+
+  table,
+  th,
+  td {
+    font-size: 1rem; 
+  }
+}
+
+
+ 
+
+

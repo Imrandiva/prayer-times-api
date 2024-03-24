@@ -6,8 +6,7 @@ from bs4 import BeautifulSoup
 from flask_cors import CORS, cross_origin
 
 import dateparser
-from duckduckgo_search import ddg
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 
 app = Flask(__name__)
@@ -16,19 +15,21 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['JSON_SORT_KEYS'] = False
 
 @app.route('/')
-def home():
-    return "It's working!"
+def index():
+  return render_template('index.html')
 
-@app.route('/api/<string:s>', methods=['GET'])
+
+@app.route('/monthly')
+def month():
+  return render_template('month_table.html')
+
+
+@app.route('/api', methods=['GET'])
 @cross_origin(origin='*')
-def prayer(s):
-  # query = str(s + " prayer time site:muslimpro.com")
+def prayer():
   data = {}
-  # urls = ddg("google", query, max_results=1)")
-  # print("hello")
 
   try :
-    # url = urls[0]['href']
     url = "https://www.muslimpro.com/Prayer-times-adhan-Stockholm-Sweden-2673730"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
@@ -60,7 +61,7 @@ def prayer(s):
                     prayer_times[date] = dict(zip(prayer_names, times))
 
             # Print the parsed data
-            print(prayer_times)
+            # print(prayer_times)
         else:
             print("Header row not found.")
     else:
@@ -74,3 +75,9 @@ def prayer(s):
 # Entry point for Vercel
 # def handler(request):
 #     return app(request)
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)
+    # main()
+    # val = ManualDataEntry()
+    # val.main()

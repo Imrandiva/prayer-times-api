@@ -1,0 +1,50 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bönetider</title>
+    <link rel="icon" href="static/img/favicon2.png">
+    <link rel="apple-touch-icon" href="static/img/favicon2.png">
+
+
+</head>
+<body style="background-image: url('static/img/makkah-bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            /* Mobile styles */
+            @media (max-width: 768px) {
+                background-size: fill;
+                background-position: top;
+            }">
+    <h1>Bönetider i Stockholm</h1>
+       <div id="loadingSpinner" class="loader"></div>
+
+      <div id="todaysDate"></div>
+      <div class="container">
+            <div id="fajr"></div>
+            <div id="sunrise" >
+                <!-- <img src="./assets/img/sunrise.svg" alt="Image of sunrise"> -->
+            </div>
+            <div id="dhuhr"></div>
+            <div id="asr" ></div>
+            <div id="maghrib"></div>
+            <div id="isha"></div>
+            <div id="fajr_tmr"></div>
+
+      </div>
+      <br>
+      <a href="/monthly" class="button-link">Se hela månadens bönetider</a>
+
+      <!-- <a>Bönetider imorgon</a>
+      <br>
+      <a>Hela månadens bönetider</a> -->
+
+    <script src="static/main.js"></script>
+</body>
+</html>
