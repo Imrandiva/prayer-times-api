@@ -78,7 +78,7 @@ function getMonthlyPrayerTimes(json) {
     for (const [date, times] of Object.entries(json)) {
         const row = document.createElement('tr');
         row.innerHTML = `<td>${date}</td><td>${times.Fajr}</td><td>${times.Sunrise}</td><td>${times.Dhuhr}</td><td>${times.Asr}</td><td>${times.Maghrib}</td><td>${times["Isha'a"]}</td>`;
-
+        console.log(date, today)
         if (date == today) {
             row.style.backgroundColor = 'lightblue';
             tbody.appendChild(row);

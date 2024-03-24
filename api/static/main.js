@@ -138,10 +138,10 @@ function displayPrayerTimes(json) {
 
     json[todayFormatted]["Fajr_tmr"] = json[tomorrowFormatted]["Fajr"] 
 
-    if ( json[tomorrowFormatted]["Fajr"] == null) {
+    if (!json[tomorrowFormatted]["Fajr"]) {
         json[tomorrowFormatted]["Fajr"] = "Inte tillgänglig";
     }
-    console.log(json[todayFormatted]["Fajr_tmr"])
+
     
     const prayerNameList = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha'a", "Fajr_tmr"];
     const pray_id = ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha", "fajr_tmr"];
