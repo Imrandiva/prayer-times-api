@@ -15,7 +15,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['JSON_SORT_KEYS'] = False
 
 @app.route('/')
-def index():
+def home():
   return render_template('index.html')
 
 
@@ -76,8 +76,8 @@ def prayer():
 # def handler(request):
 #     return app(request)
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+# if __name__ == "__main__":
+#     app.run(debug=True, port=5001)
     # main()
     # val = ManualDataEntry()
     # val.main()
