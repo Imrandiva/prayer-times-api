@@ -136,11 +136,10 @@ function displayPrayerTimes(json) {
     //     dict[prayer] = json[prayer];
     // }
 
+  
     json[todayFormatted]["Fajr_tmr"] = json[tomorrowFormatted]["Fajr"] 
 
-    if (!json[tomorrowFormatted]["Fajr"]) {
-        json[tomorrowFormatted]["Fajr"] = "Inte tillgänglig";
-    }
+  
 
     
     const prayerNameList = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha'a", "Fajr_tmr"];
@@ -152,6 +151,9 @@ function displayPrayerTimes(json) {
     prev_prayer = null
     for (const prayer of prayerNameList) {
 
+        if (json[todayFormatted][prayer] === undefined) {
+            continue;
+        }
         const prayer_time = json[todayFormatted][prayer];
         const timeString = prayer_time;
         const today = new Date();
