@@ -94,9 +94,11 @@ function getTodaysDate() {
     let today = new Date();
     let day = today.getDate();
     let month = today.toLocaleString('default', { month: 'short' });
-    month = month.charAt(0).toUpperCase() + month.slice(1);
+    month = month.substring(0, 3); 
+    month = month.charAt(0).toUpperCase() + month.slice(1); // Capitalize the first letter
     let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
-    let todayFormatted = `${weekday} ${day} ${month}`.replace('.', '');
+    let todayFormatted = `${weekday} ${day} ${month}`;
+
     return todayFormatted;
 }
 

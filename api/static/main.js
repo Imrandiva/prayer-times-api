@@ -104,6 +104,8 @@ function displayPrayerTimes(json) {
     let day = today.getDate();
     let month = today.toLocaleString('default', { month: 'short' });
     month = month.charAt(0).toUpperCase() + month.slice(1);
+    month = month.substring(0, 3); 
+
     let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
     let display_weekday = today.toLocaleDateString('sv', { weekday: 'long'});
     // Format the date as "Weekday Day Month"
@@ -122,6 +124,8 @@ function displayPrayerTimes(json) {
     day = tomorrow.getDate();
     month = tomorrow.toLocaleString('default', { month: 'short' });
     month = month.charAt(0).toUpperCase() + month.slice(1);
+    month = month.substring(0, 3); 
+
     weekday = tomorrow.toLocaleDateString('en-US', { weekday: 'short' });
     
     // Format the date as "Weekday Day Month"
