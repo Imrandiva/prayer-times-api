@@ -102,7 +102,7 @@ function displayPrayerTimes(json) {
 
     let today = new Date();
     let day = today.getDate();
-    let month = today.toLocaleString('default', { month: 'short' });
+    let month = today.toLocaleString('en-US', { month: 'short' });
     month = month.charAt(0).toUpperCase() + month.slice(1);
     month = month.substring(0, 3); 
 
@@ -122,7 +122,7 @@ function displayPrayerTimes(json) {
     tomorrow.setDate(today.getDate() + 1);
 
     day = tomorrow.getDate();
-    month = tomorrow.toLocaleString('default', { month: 'short' });
+    month = tomorrow.toLocaleString('en-US', { month: 'short' });
     month = month.charAt(0).toUpperCase() + month.slice(1);
     month = month.substring(0, 3); 
 
