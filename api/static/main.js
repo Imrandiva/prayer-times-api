@@ -6,34 +6,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // const url = "https://prayer-times-api-gamma.vercel.app/api/stockholm";
     const loadingSpinner = document.getElementById("loadingSpinner");
 
-    // // const cachedData = localStorage.getItem("cachedData");
+    const cachedData = localStorage.getItem("cachedData");
 
 
-    // // Get todays month
-    // let today = new Date();
-    // let day = today.getDate();
-    // let month = today.toLocaleString('default', { month: 'short' });
-    // month = month.charAt(0).toUpperCase() + month.slice(1);
-    // let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
+    // Get todays month
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.toLocaleString('default', { month: 'short' });
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+    let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
 
-    // // Format the date as "Weekday Day Month"
-    // let todayFormatted = `${weekday} ${day} ${month}`.replace('.', '');
-    // //&& cachedData. month === month
+    // Format the date as "Weekday Day Month"
+    let todayFormatted = `${weekday} ${day} ${month}`.replace('.', '');
+    //&& cachedData. month === month
 
-    // // Fixa så vi updaterar cahce varje månad
-    // if (cachedData ) {
-    //     const jsonData = JSON.parse(cachedData);
+    // Fixa så vi updaterar cahce varje månad
+    if (cachedData ) {
+        const jsonData = JSON.parse(cachedData);
 
-    //     if (jsonData[todayFormatted] === undefined) {
-    //         fetchPrayerData(url, loadingSpinner);
-    //         return
-    //     }
+        if (jsonData[todayFormatted] === undefined) {
+            fetchAPI(loadingSpinner);
+            return
+        }
 
-    //     loadingSpinner.style.display = "none";
-    //     displayPrayerTimes(jsonData);
-    // } else {
+        loadingSpinner.style.display = "none";
+        displayPrayerTimes(jsonData);
+    } else {
         fetchAPI(loadingSpinner);
-    // }
+    }
 });
 
 
@@ -51,6 +51,9 @@ function fetchAPI(loadingSpinner) {
             // Display the API data
             loadingSpinner.style.display = "none";
             displayPrayerTimes(data);
+            
+            // Update the cache with the new data
+            localStorage.setItem("cachedData", JSON.stringify(data));
         })
         .catch(error => {
             console.error('Error fetching API data:', error);
@@ -58,20 +61,20 @@ function fetchAPI(loadingSpinner) {
 }
 
 // Fetch data from the API and store it in localStorage
-// function fetchPrayerData(url, loadingSpinner) {
-//     fetch(url)
-//         .then(response => response.json())
-//         .then(json => {
-//             loadingSpinner.style.display = "none";
-//             displayPrayerTimes(json);
-//             localStorage.setItem("cachedData", JSON.stringify(json));
-//         })
-//         .catch(error => {
-//             loadingSpinner.style.display = "none";
-//             createAndStyleElement("h1", "Datan kan inte hämtas just nu.");
-//             // console.error(error.message);
-//         });
-// }
+function fetchPrayerData(url, loadingSpinner) {
+    fetch(url)
+        .then(response => response.json())
+        .then(json => {
+            loadingSpinner.style.display = "none";
+            displayPrayerTimes(json);
+            localStorage.setItem("cachedData", JSON.stringify(json));
+        })
+        .catch(error => {
+            loadingSpinner.style.display = "none";
+            createAndStyleElement("h1", "Datan kan inte hämtas just nu.");
+            // console.error(error.message);
+        });
+}
 
 // Get the data from the cache
 function checkCache(url) {
@@ -385,23 +388,10 @@ function activePrayerCard(i, prayer_id, image_source, prayer, prayer_time, today
 
 
     const icon = document.createElement("p");
+    icon.className = "timeUntil";
     const timeString = hours === 1 ? `${hours} timme och` : hours > 1 ? `${hours} timmar och` : '';
     icon.textContent = `Om ${timeString} ${minutes} min`;
-    icon.style.cssText = `
-        font-size: 0.5rem;
-        font-family: sans-serif;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin-right: 1%;
-        margin-top: 1%;
-        padding: 2px 6px;
-        background-color: #007BFF;
-        color: #FFFFFF;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    `;
+  
 
 mydiv.appendChild(icon);
     

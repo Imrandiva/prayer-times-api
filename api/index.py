@@ -1,12 +1,9 @@
 # vercel dev
 
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template
 from bs4 import BeautifulSoup
 from flask_cors import CORS, cross_origin
-
-import dateparser
-from flask import Flask, jsonify, request, render_template
 
 
 app = Flask(__name__)

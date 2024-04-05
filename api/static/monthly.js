@@ -2,34 +2,36 @@ document.addEventListener("DOMContentLoaded", () => {
     // const url = "https://prayer-times-api-gamma.vercel.app/api/stockholm";
     const loadingSpinner = document.getElementById("loadingSpinner");
 
-    // // const cachedData = localStorage.getItem("cachedData");
+    const cachedData = localStorage.getItem("cachedData");
 
 
-    // // Get todays month
-    // let today = new Date();
-    // let day = today.getDate();
-    // let month = today.toLocaleString('default', { month: 'short' });
-    // month = month.charAt(0).toUpperCase() + month.slice(1);
-    // let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
+    // Get todays month
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.toLocaleString('default', { month: 'short' });
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+    let weekday = today.toLocaleDateString('en-US', { weekday: 'short' });
 
-    // // Format the date as "Weekday Day Month"
-    // let todayFormatted = `${weekday} ${day} ${month}`.replace('.', '');
-    // //&& cachedData. month === month
+    // Format the date as "Weekday Day Month"
+    let todayFormatted = `${weekday} ${day} ${month}`.replace('.', '');
+    //&& cachedData. month === month
 
-    // // Fixa så vi updaterar cahce varje månad
-    // if (cachedData ) {
-    //     const jsonData = JSON.parse(cachedData);
+    // Fixa så vi updaterar cahce varje månad
+    if (cachedData ) {
+        const jsonData = JSON.parse(cachedData);
 
-    //     if (jsonData[todayFormatted] === undefined) {
-    //         fetchPrayerData(url, loadingSpinner);
-    //         return
-    //     }
+        if (jsonData[todayFormatted] === undefined) {
+            window.location.refresh(true)
 
-    //     loadingSpinner.style.display = "none";
-    //     displayPrayerTimes(jsonData);
-    // } else {
+            fetchAPI(loadingSpinner);
+            return
+        }
+
+        loadingSpinner.style.display = "none";
+        getMonthlyPrayerTimes(jsonData);
+    } else {
         fetchAPI(loadingSpinner);
-    // }
+    }
 });
 
 
@@ -47,6 +49,8 @@ function fetchAPI(loadingSpinner) {
             // Display the API data
             loadingSpinner.style.display = "none";
             getMonthlyPrayerTimes(data);
+            localStorage.setItem("cachedData", JSON.stringify(data));
+
         })
         .catch(error => {
             console.error('Error fetching API data:', error);
